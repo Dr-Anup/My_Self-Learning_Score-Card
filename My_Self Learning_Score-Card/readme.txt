@@ -1,0 +1,1 @@
+This interactive self-assessment helps you measure readiness across two tracks: Readiness Checklist (15 items) and 7 Shades of Mentoring (7 items). Rate each statement from 1–5. Your progress and scores are calculated automatically.
