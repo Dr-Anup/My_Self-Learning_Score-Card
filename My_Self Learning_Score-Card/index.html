@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IPREPTODAY • 360° Enablement Toolkit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --brand:#C04040;
+      --brand-dark:#a22f2f;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --ring:#ef4444;
+    }
+    html,body{height:100%}
+    body{font-family:'Inter',system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f7f7fb;color:var(--ink)}
+    .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:1rem;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+    .brand{color:var(--brand)}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:9999px;padding:.625rem 1rem;font-weight:600}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-primary:hover{background:var(--brand-dark)}
+    .btn-ghost{background:#fff;border:1px solid rgba(0,0,0,.08);}
+    .btn-ghost:hover{background:#f3f4f6}
+    .pill{border-radius:9999px;padding:.25rem .625rem;font-size:.8rem}
+    .progress-bar{height:10px;background:#e5e7eb;border-radius:9999px;overflow:hidden}
+    .progress-bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),#fb7185);width:0%}
+    .section-title{display:flex;align-items:center;gap:.6rem}
+    .section-title .num{display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:9999px;background:rgba(192,64,64,.12);color:var(--brand);font-weight:800}
+    .kpi{border:1px dashed rgba(0,0,0,.12)}
+    .likert label{cursor:pointer}
+    .likert input{accent-color:var(--brand)}
+    .badge{border:3px solid var(--brand);border-radius:9999px;box-shadow:0 0 0 6px rgba(192,64,64,.12), 0 12px 24px rgba(0,0,0,.08)}
+    .ring-brand:focus{outline:none;box-shadow:0 0 0 3px rgba(239,68,68,.35)}
+    .collapsible-section summary{cursor:pointer;font-weight:700;font-size:1.125rem;padding:1rem;border-radius:0.75rem;background:#f8f9fa;border:1px solid rgba(0,0,0,0.08);transition: background-color 0.2s}
+    .collapsible-section summary:hover{background:#f0f2f4}
+    .collapsible-content{padding:1.5rem;border-left:1px dashed #ccc;margin-left:1rem;}
+    .collapsible-content h4{font-weight:600;font-size:1rem;margin-top:1.5rem;margin-bottom:0.5rem;}
+    .collapsible-content ul{list-style-type:disc;margin-left:1.5rem;}
+    
+    /* New Infographic-style CSS */
+    .infographic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .infographic-card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 4px 12px rgba(0,0,0,.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .infographic-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0,0,0,.08);
+    }
+    .infographic-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .infographic-number {
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .infographic-card h4 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .infographic-card p {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .infographic-card strong {
+      color: var(--ink);
+    }
+    .bg-path-1 { background-color: #3b82f6; }
+    .bg-path-2 { background-color: #10b981; }
+    .bg-path-3 { background-color: #f59e0b; }
+    .bg-path-4 { background-color: #ef4444; }
+    .bg-path-5 { background-color: #8b5cf6; }
+    .bg-path-6 { background-color: #ec4899; }
+    .bg-path-7 { background-color: #14b8a6; }
+    .bg-path-8 { background-color: #22c55e; }
+    .bg-path-9 { background-color: #d946ef; }
+    .bg-path-10 { background-color: #06b6d4; }
+    .bg-path-11 { background-color: #eab308; }
+    .bg-path-12 { background-color: #f97316; }
+    .bg-path-13 { background-color: #6366f1; }
+    .bg-path-14 { background-color: #9333ea; }
+    .bg-path-15 { background-color: #0ea5e9; }
+  </style>
+</head>
+<body>
+  <header class="bg-[color:var(--brand)] text-white sticky top-0 z-50 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="https://ipreptoday.org/uploads/images//iprep_logo.png" alt="IPREPTODAY" class="w-10 h-10 rounded-full bg-white/90 p-1 shadow"/>
+        <div>
+          <h1 class="text-xl md:text-2xl font-extrabold tracking-tight">360° Enablement Toolkit</h1>
+          <p class="text-white/80 text-sm md:text-base">Readiness • Mentoring • Progress • Badges</p>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-2">
+        <button id="saveBtn" class="btn btn-ghost ring-brand" title="Save to this device">💾 Save</button>
+        <button id="loadBtn" class="btn btn-ghost ring-brand" title="Load from this device">📂 Load</button>
+        <button id="exportBtn" class="btn btn-ghost ring-brand" title="Export JSON">⬇️ Export</button>
+        <button id="printBtn" class="btn btn-ghost ring-brand" title="Print / PDF">🖨️ Print</button>
+        <a href="#summary" class="btn btn-primary">View Summary</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+    <section class="card p-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Welcome!</h2>
+          <p class="text-[color:var(--muted)] mt-2 max-w-2xl">
+            This interactive self-assessment helps you measure readiness across two tracks:
+            <span class="font-semibold text-[color:var(--ink)]">Readiness Checklist (15 items)</span> and
+            <span class="font-semibold text-[color:var(--ink)]">7 Shades of Mentoring (7 items)</span>.
+            Rate each statement from 1–5. Your progress and scores are calculated automatically.
+          </p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="text-center">
+            <div id="overallScore" class="text-3xl font-extrabold brand">0%</div>
+            <div class="text-xs uppercase tracking-wide text-[color:var(--muted)]">Overall Readiness</div>
+          </div>
+          <div class="w-24 h-24 grid place-items-center bg-white badge">
+            <div class="text-center leading-tight">
+              <div id="badgeLabel" class="text-xs font-bold">Beginner</div>
+              <div class="text-[10px] text-[color:var(--muted)]">Status</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <div class="progress-bar" aria-label="Overall completion">
+          <span id="overallProgress"></span>
+        </div>
+        <div class="flex justify-between text-xs text-[color:var(--muted)] mt-1">
+          <span><strong id="answeredCount">0</strong>/22 answered</span>
+          <span><strong id="completePct">0%</strong> complete</span>
+        </div>
+      </div>
+    </section>
+
+    <details class="collapsible-section card p-0">
+      <summary>Your Personalized Learning Journey: A High-Level Guide to 15 Pathways for Growth</summary>
+      <div class="p-6">
+        <p class="mb-6">
+          In today's dynamic world, continuous learning is no longer a choice—it's a necessity. This article outlines 15 high-level learning pathways, each a unique avenue for personal and professional development. For each path, we explore its core concept and provide examples of how you can leverage digital tools and AI to accelerate your skills development, whether you are a mentor, student, mentee, or seasoned professional.
+        </p>
+        
+        <div class="infographic-grid">
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-1">1</div>
+              <h4 class="font-semibold text-lg">Self-Learning</h4>
+            </div>
+            <p><strong>Concept:</strong> The deliberate and autonomous pursuit of knowledge and skills without formal instruction. It's about taking ownership of your own education.</p>
+            <p><strong>AI & Digital Tools:</strong> Platforms like Coursera, edX, and Udemy use AI to recommend personalized courses. Khan Academy offers free, adaptive lessons. Use ChatGPT or Perplexity AI to summarize research papers or generate a learning plan. Duolingo and Codecademy use gamification and instant feedback.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-2">2</div>
+              <h4 class="font-semibold text-lg">Industry Visit</h4>
+            </div>
+            <p><strong>Concept:</strong> Gaining firsthand, real-world experience and insight into a company's operations and culture. It bridges the gap between theoretical knowledge and practical application.</p>
+            <p><strong>AI & Digital Tools:</strong> Google Arts & Culture offers virtual tours of museums and cultural sites. YouTube provides virtual tours of factories and facilities. Use Spatial to create a virtual meeting room to discuss a visit. Explore National Geographic Explore VR for deep understanding.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-3">3</div>
+              <h4 class="font-semibold text-lg">Internship</h4>
+            </div>
+            <p><strong>Concept:</strong> A structured, temporary work program that allows individuals to apply their academic knowledge in a professional setting, gain hands-on skills, and build a professional network.</p>
+            <p><strong>AI & Digital Tools:</strong> LinkedIn and Handshake use AI to match your profile to relevant opportunities. Utilize Grammarly AI to provide quick feedback. Use Trello or Asana to manage projects. Use ChatGPT to craft tailored cover letters and resumes. Practice interview skills with simulators like Pramp.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-4">4</div>
+              <h4 class="font-semibold text-lg">Body & Mind Enablement</h4>
+            </div>
+            <p><strong>Concept:</strong> A holistic approach to well-being that recognizes the interconnectedness of physical health, mental resilience, and cognitive function. This path is crucial for sustaining a high-performance lifestyle.</p>
+            <p><strong>AI & Digital Tools:</strong> Fitness apps like MyFitnessPal and Strava track progress. Headspace and Calm provide AI-driven meditations. Use Wysa or Woebot, AI chatbots that provide emotional support. Daylio helps track mood patterns, while Seven offers quick workouts.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-5">5</div>
+              <h4 class="font-semibold text-lg">Financial Assistance</h4>
+            </div>
+            <p><strong>Concept:</strong> Securing financial support to make education and professional development accessible. This includes scholarships, grants, loans, and other forms of aid.</p>
+            <p><strong>AI & Digital Tools:</strong> Mint and YNAB use AI to analyze spending habits. NerdWallet and Investopedia provide AI-powered tools for financial literacy. Use scholarship search engines like ScholarshipPortal or Fastweb which use algorithms to match you to eligible scholarships.</p>
+          </div>
+
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-6">6</div>
+              <h4 class="font-semibold text-lg">Mentoring & Coaching</h4>
+            </div>
+            <p><strong>Concept:</strong> A relationship where an experienced individual guides and supports a less-experienced person (mentee) to achieve their goals. Coaching is often more short-term and focused on a specific skill or objective.</p>
+            <p><strong>AI & Digital Tools:</strong> Platforms like MentorCruise or Together use AI to match mentors and mentees. Use Scribe to create step-by-step guides, or use Loom to record video tutorials. Use Calendly to easily schedule meetings with your mentor.</p>
+          </div>
+
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-7">7</div>
+              <h4 class="font-semibold text-lg">Self-Imaging</h4>
+            </div>
+            <p><strong>Concept:</strong> The process of understanding and consciously shaping your personal and professional identity. It involves defining your values, strengths, and public image to align with your career goals.</p>
+            <p><strong>AI & Digital Tools:</strong> Use Canva to design a professional visual identity. Use DALL-E or Midjourney to create unique visual concepts. Use Jobscan to optimize your resume and LinkedIn profile. Use Brandyourself to manage your online reputation.</p>
+          </div>
+
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-8">8</div>
+              <h4 class="font-semibold text-lg">Networking</h4>
+            </div>
+            <p><strong>Concept:</strong> Building and maintaining a mutually beneficial network of professional contacts. It is a fundamental skill for career advancement, collaboration, and finding new opportunities.</p>
+            <p><strong>AI & Digital Tools:</strong> LinkedIn is the premier platform. Use its AI-driven "People You May Know" feature. Use Contactually to manage your network. Use Hunter.io to find professional email addresses. Use ChatGPT to draft compelling connection requests.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-9">9</div>
+              <h4 class="font-semibold text-lg">Digital Badge & Certification</h4>
+            </div>
+            <p><strong>Concept:</strong> Earning credentials that validate specific skills, often through micro-learning. Digital badges are easily shareable and verifiable, offering a modern alternative to traditional degrees.</p>
+            <p><strong>AI & Digital Tools:</strong> Platforms like Credly, Coursera, and edX issue verifiable digital badges. Use OpenBadges to create your own badges. Use Google's Career Certificates or IBM's Digital Badges to earn credentials in high-demand fields.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-10">10</div>
+              <h4 class="font-semibold text-lg">Employment</h4>
+            </div>
+            <p><strong>Concept:</strong> The process of securing and maintaining a job. This pathway involves skills in job searching, interviewing, and workplace productivity.</p>
+            <p><strong>AI & Digital Tools:</strong> Indeed and Monster use AI to match candidates with jobs. Glassdoor provides AI-powered salary insights. Use LinkedIn's Recruiter Lite for talent scouting. Use Jobscan to tailor your resume and interview.io to practice interviews.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-11">11</div>
+              <h4 class="font-semibold text-lg">Skills for a New Way of Working</h4>
+            </div>
+            <p><strong>Concept:</strong> Adapting to the modern, often remote or hybrid, work environment. This includes mastering digital collaboration, async communication, and project management.</p>
+            <p><strong>AI & Digital Tools:</strong> Slack and Microsoft Teams use AI to organize notifications. Loom allows for async video messaging. Use Miro or Mural for collaborative brainstorming. Use Monday.com or ClickUp to manage complex projects.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-12">12</div>
+              <h4 class="font-semibold text-lg">Professional Branding</h4>
+            </div>
+            <p><strong>Concept:</strong> Consciously building and marketing your reputation as an expert in your field. A strong professional brand opens doors to new opportunities and establishes credibility.</p>
+            <p><strong>AI & Digital Tools:</strong> Use LinkedIn's Creator Mode to publish articles. Use Grammarly to ensure written content is polished. Use Jasper AI or Copy.ai to generate content ideas. Create an online portfolio with Wix or Squarespace.</p>
+          </div>
+
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-13">13</div>
+              <h4 class="font-semibold text-lg">Going Global</h4>
+            </div>
+            <p><strong>Concept:</strong> Preparing for a career in an international context. This includes developing cross-cultural communication skills, understanding global markets, and leveraging international networks.</p>
+            <p><strong>AI & Digital Tools:</strong> Google Translate and DeepL offer AI-powered translation. Use Oculus VR and apps like MeetinVR to host virtual global meetings. Use Perplexity AI to research cultural norms. Duolingo and Babbel are perfect for learning new languages.</p>
+          </div>
+
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-14">14</div>
+              <h4 class="font-semibold text-lg">Transferable Skills</h4>
+            </div>
+            <p><strong>Concept:</strong> Identifying and developing skills that are valuable across multiple industries and roles. Examples include communication, problem-solving, teamwork, and critical thinking.</p>
+            <p><strong>AI & Digital Tools:</strong> Coursera and edX offer a wide range of soft skills courses. Use Cerego, a tool that uses AI for memory retention. Use Gemini to find a new field where your existing skills are in high demand. Practice public speaking with AI-powered apps like Yoodli.</p>
+          </div>
+          
+          <div class="infographic-card">
+            <div class="infographic-header">
+              <div class="infographic-number bg-path-15">15</div>
+              <h4 class="font-semibold text-lg">Giving Back to Society</h4>
+            </div>
+            <p><strong>Concept:</strong> Using your skills and time to contribute to the community and help others. This can be through volunteering, mentoring, or social projects.</p>
+            <p><strong>AI & Digital Tools:</strong> VolunteerMatch uses AI to match your skills with opportunities. Use Canva to create professional flyers for a non-profit. Use Generative AI to write a compelling grant proposal. Use Trello to organize and manage a volunteer project.</p>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <h4 class="text-xl font-bold mb-2">References</h4>
+          <p class="text-sm">This content is based on concepts and ideas from the World Economic Forum, including:</p>
+          <ul class="list-disc ml-6 mt-2 text-sm">
+            <li><a href="https://www.weforum.org/" class="text-blue-600 hover:underline">World Economic Forum (weforum.org)</a></li>
+            <li><a href="https://www.weforum.org/stories/2016/03/21st-century-skills-future-jobs-students/" class="text-blue-600 hover:underline">World Economic Forum: 21st century skills, future jobs, students</a></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <section class="card p-6" id="readiness">
+      <div class="section-title mb-4">
+        <span class="num">1</span>
+        <h3 class="text-xl md:text-2xl font-extrabold">Readiness Checklist</h3>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4" id="readinessList">
+        </div>
+
+      <div class="mt-6 grid md:grid-cols-3 gap-4">
+        <div class="kpi rounded-xl p-4 text-center">
+          <div class="text-sm text-[color:var(--muted)]">Average</div>
+          <div id="r-avg" class="text-2xl font-extrabold">0.0</div>
+        </div>
+        <div class="kpi rounded-xl p-4 text-center">
+          <div class="text-sm text-[color:var(--muted)]">Completion</div>
+          <div id="r-comp" class="text-2xl font-extrabold">0%</div>
+        </div>
+        <div class="kpi rounded-xl p-4 text-center">
+          <div class="text-sm text-[color:var(--muted)]">Weighted Score</div>
+          <div id="r-score" class="text-2xl font-extrabold">0%</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card p-6" id="mentoring">
+      <div class="section-title mb-4">
+        <span class="num">2</span>
+        <h3 class="text-xl md:text-2xl font-extrabold">7 Shades of Mentoring</h3>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4" id="mentoringList">
+        </div>
+
+      <div class="mt-6 grid md:grid-cols-3 gap-4">
+        <div class="kpi rounded-xl p-4 text-center">
+          <div class="text-sm text-[color:var(--muted)]">Average</div>
+          <div id="m-avg" class="text-2xl font-extrabold">0.0</div>
+        </div>
+        <div class="kpi rounded-xl p-4 text-center">
+          <div class="text-sm text-[color:var(--muted)]">Completion</div>
+          <div id="m-comp" class="text-2xl font-extrabold">0%</div>
+        </div>
+        <div class="kpi rounded-xl p-4 text-center">
+          <div class="text-sm text-[color:var(--muted)]">Weighted Score</div>
+          <div id="m-score" class="text-2xl font-extrabold">0%</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card p-6" id="summary">
+      <div class="section-title mb-4">
+        <span class="num">3</span>
+        <h3 class="text-xl md:text-2xl font-extrabold">Summary & Actions</h3>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="rounded-xl p-4 bg-white border">
+          <div class="text-sm text-[color:var(--muted)]">Overall Average (1–5)</div>
+          <div id="overallAvg" class="text-3xl font-extrabold mt-1">0.0</div>
+        </div>
+        <div class="rounded-xl p-4 bg-white border">
+          <div class="text-sm text-[color:var(--muted)]">Areas of Strength</div>
+          <ul id="strengths" class="mt-1 list-disc list-inside text-sm"></ul>
+        </div>
+        <div class="rounded-xl p-4 bg-white border">
+          <div class="text-sm text-[color:var(--muted)]">Focus Areas</div>
+          <ul id="gaps" class="mt-1 list-disc list-inside text-sm"></ul>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-2">
+        <button id="clearBtn" class="btn btn-ghost">♻️ Clear responses</button>
+        <button id="shareBtn" class="btn btn-primary">🔗 Copy sharable snapshot</button>
+      </div>
+
+      <p class="text-xs text-[color:var(--muted)] mt-4">
+        Your data is stored locally in your browser unless you export it. You can print this page to PDF using the Print button in the header.
+      </p>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 pb-10">
+    <div class="text-center text-sm text-[color:var(--muted)]">
+      © <span id="yr"></span> IPREPTODAY • Built for self-readiness & mentoring enablement.
+    </div>
+  </footer>
+
+  <template id="questionTemplate">
+    <div class="rounded-xl border p-4">
+      <div class="font-semibold mb-2"></div>
+      <fieldset class="likert grid grid-cols-5 gap-2 text-center" role="radiogroup">
+        </fieldset>
+      <div class="mt-2 flex justify-between text-[11px] text-[color:var(--muted)]">
+        <span>1 Strongly Disagree</span>
+        <span>5 Strongly Agree</span>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    const READINESS_ITEMS = [
+      "I actively practice Self-Learning and take initiative for growth.",
+      "I am open to Industry Visits for real-world exposure and knowledge.",
+      "I am prepared for Internship opportunities and skill application.",
+      "I balance Body & Mind Enablement through health and mindfulness.",
+      "I plan for Financial Assistance and sustainable learning resources.",
+      "I value Mentoring & Coaching as a key enabler for success.",
+      "I build my Self Imaging through positive reputation and actions.",
+      "I engage in Networking to expand connections and opportunities.",
+      "I pursue Digital Badges & Certifications for credibility and skills validation.",
+      "I focus on Employment readiness with the right skills and attitude.",
+      "I practice Skills for New Ways of Working (agile, hybrid, digital).",
+      "I invest in Professional Branding and showcasing expertise.",
+      "I am open to Going Global and embracing intercultural opportunities.",
+      "I strengthen my Transferrable Skills applicable across industries.",
+      "I believe in Giving Back to Society through mentoring and volunteering."
+    ];
+
+    const MENTORING_ITEMS = [
+      "I am prepared for One-on-One Mentoring relationships.",
+      "I can engage effectively in Group Mentoring sessions.",
+      "I am ready for Flash Mentoring (short-term, focused guidance).",
+      "I value Peer Mentoring and knowledge-sharing with equals.",
+      "I am comfortable with Distance / E-Mentoring via digital platforms.",
+      "I am ready for Speed Mentoring interactions.",
+      "I embrace Reverse Mentoring to learn from younger or junior peers."
+    ];
+
+    const STATE_KEY = "iprep360_state_v2";
+    const template = document.getElementById("questionTemplate");
+
+    function renderList(containerId, items, prefix){
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      items.forEach((text, idx) => {
+        const node = template.content.cloneNode(true);
+        const card = node.querySelector("div.rounded-xl");
+        const title = node.querySelector(".font-semibold");
+        title.textContent = text;
+
+        const fs = node.querySelector("fieldset");
+        fs.setAttribute("aria-label", text);
+
+        for(let v=1; v<=5; v++){
+          const label = document.createElement("label");
+          label.className = "flex items-center justify-center gap-1 border rounded-lg py-2 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-[color:var(--ring)]";
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `${prefix}-${idx}`;
+          input.value = v;
+          input.className = "ring-brand";
+          input.addEventListener("change", () => { compute(); saveLocal(); });
+          label.appendChild(input);
+          const span = document.createElement("span");
+          span.className = "text-sm font-medium";
+          span.textContent = v;
+          label.appendChild(span);
+          fs.appendChild(label);
+        }
+        container.appendChild(node);
+      });
+    }
+
+    function collect(prefix, count){
+      const values = [];
+      for(let i=0;i<count;i++){
+        const sel = document.querySelector(`input[name='${prefix}-${i}']:checked`);
+        values.push(sel ? Number(sel.value) : null);
+      }
+      return values;
+    }
+
+    function average(nums){
+      const filtered = nums.filter(v => v!==null);
+      if(filtered.length===0) return 0;
+      return filtered.reduce((a,b)=>a+b,0)/filtered.length;
+    }
+
+    function percentageComplete(nums){
+      const done = nums.filter(v => v!==null).length;
+      return {done, pct: Math.round((done/nums.length)*100)};
+    }
+
+    function scoreToBadge(pct){
+      if(pct>=85) return "Trailblazer";
+      if(pct>=70) return "Ready";
+      if(pct>=50) return "Rising";
+      return "Beginner";
+    }
+
+    function compute(){
+      const rVals = collect("r", READINESS_ITEMS.length);
+      const mVals = collect("m", MENTORING_ITEMS.length);
+
+      const rAvg = average(rVals);
+      const mAvg = average(mVals);
+
+      const rComp = percentageComplete(rVals);
+      const mComp = percentageComplete(mVals);
+
+      const rScore = Math.round((rAvg/5)*100);
+      const mScore = Math.round((mAvg/5)*100);
+
+      // Update KPIs
+      document.getElementById("r-avg").textContent = rAvg.toFixed(1);
+      document.getElementById("m-avg").textContent = mAvg.toFixed(1);
+      document.getElementById("r-comp").textContent = rComp.pct + "%";
+      document.getElementById("m-comp").textContent = mComp.pct + "%";
+      document.getElementById("r-score").textContent = rScore + "%";
+      document.getElementById("m-score").textContent = mScore + "%";
+
+      // Overall
+      const allVals = [...rVals, ...mVals];
+      const allAvg = average(allVals);
+      const allComp = percentageComplete(allVals);
+      const overallPct = Math.round((allAvg/5)*100);
+
+      document.getElementById("overallScore").textContent = overallPct + "%";
+      document.getElementById("answeredCount").textContent = allComp.done;
+      document.getElementById("completePct").textContent = allComp.pct + "%";
+
+      const bar = document.getElementById("overallProgress");
+      bar.style.width = allComp.pct + "%";
+
+      const badge = scoreToBadge(overallPct);
+      document.getElementById("badgeLabel").textContent = badge;
+
+      document.getElementById("overallAvg").textContent = allAvg.toFixed(1);
+
+      // strengths & gaps (top 3 / bottom 3 from readiness statements only for clarity)
+      const indexed = READINESS_ITEMS.map((txt, i)=>({txt, val: rVals[i] ?? 0}));
+      indexed.sort((a,b)=>b.val-a.val);
+      const strengths = indexed.filter(x=>x.val>0).slice(0,3);
+      const gaps = indexed.filter(x=>x.val>0).slice(-3).reverse();
+
+      const sUl = document.getElementById("strengths");
+      const gUl = document.getElementById("gaps");
+      sUl.innerHTML = strengths.map(s=>`<li>${s.txt} <span class="pill bg-green-100 text-green-700 ml-1">${s.val}/5</span></li>`).join("") || "<li>No data yet.</li>";
+      gUl.innerHTML = gaps.map(s=>`<li>${s.txt} <span class="pill bg-amber-100 text-amber-700 ml-1">${s.val}/5</span></li>`).join("") || "<li>No data yet.</li>";
+    }
+
+    function saveLocal(){
+      const rVals = collect("r", READINESS_ITEMS.length);
+      const mVals = collect("m", MENTORING_ITEMS.length);
+      const data = {rVals, mVals, when: new Date().toISOString()};
+      localStorage.setItem(STATE_KEY, JSON.stringify(data));
+    }
+
+    function loadLocal(data){
+      try{
+        const obj = data || JSON.parse(localStorage.getItem(STATE_KEY) || "{}");
+        if(!obj || (!obj.rVals && !obj.mVals)) return;
+        (obj.rVals||[]).forEach((v,i)=>{
+          if(v){
+            const el = document.querySelector(`input[name='r-${i}'][value='${v}']`);
+            if(el){ el.checked = true; }
+          }
+        });
+        (obj.mVals||[]).forEach((v,i)=>{
+          if(v){
+            const el = document.querySelector(`input[name='m-${i}'][value='${v}']`);
+            if(el){ el.checked = true; }
+          }
+        });
+      }catch(e){ console.warn(e); }
+      compute();
+    }
+
+    function exportJSON(){
+      const payload = localStorage.getItem(STATE_KEY) || JSON.stringify({});
+      const blob = new Blob([payload],{type:"application/json"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "iprep360_snapshot.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function importJSON(){
+      const inp = document.createElement("input");
+      inp.type = "file";
+      inp.accept = "application/json";
+      inp.addEventListener("change", () => {
+        const file = inp.files?.[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try{
+            const data = JSON.parse(String(reader.result||"{}"));
+            localStorage.setItem(STATE_KEY, JSON.stringify(data));
+            loadLocal(data);
+          }catch(e){ alert("Invalid file");}
+        };
+        reader.readAsText(file);
+      });
+      inp.click();
+    }
+
+    function copyShare(){
+      const data = JSON.parse(localStorage.getItem(STATE_KEY) || "{}");
+      const summary = {
+        overall: document.getElementById("overallScore").textContent,
+        badge: document.getElementById("badgeLabel").textContent,
+        readiness_avg: document.getElementById("r-avg").textContent,
+        mentoring_avg: document.getElementById("m-avg").textContent,
+        timestamp: new Date().toLocaleString()
+      };
+      const text = "IPREPTODAY 360° Snapshot\n" + JSON.stringify({summary, data}, null, 2);
+      navigator.clipboard.writeText(text).then(()=>{
+        alert("Snapshot copied to clipboard!");
+      });
+    }
+
+    function clearAll(){
+      if(!confirm("Clear all responses?")) return;
+      localStorage.removeItem(STATE_KEY);
+      document.querySelectorAll("input[type=radio]").forEach(i=>i.checked=false);
+      compute();
+    }
+
+    // Render
+    renderList("readinessList", READINESS_ITEMS, "r");
+    renderList("mentoringList", MENTORING_ITEMS, "m");
+    compute();
+    loadLocal();
+
+    // UI Actions
+    document.getElementById("saveBtn").addEventListener("click", ()=>saveLocal());
+    document.getElementById("loadBtn").addEventListener("click", ()=>importJSON());
+    document.getElementById("exportBtn").addEventListener("click", ()=>exportJSON());
+    document.getElementById("printBtn").addEventListener("click", ()=>window.print());
+    document.getElementById("clearBtn").addEventListener("click", clearAll);
+    document.getElementById("shareBtn").addEventListener("click", copyShare);
+    document.getElementById("yr").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
